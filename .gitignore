@@ -3,3 +3,7 @@ data/
 *.jpeg
 *.tar.gz
 *.json
+try.py
+
+
+.DS_Store
