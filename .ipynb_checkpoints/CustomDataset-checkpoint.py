@@ -63,7 +63,7 @@ class CustomDataset(Dataset):
                         mask = np.zeros(img.shape[:2], dtype="float64")
                         pts = data["annotations"][0]["polygon"]["path"]
                         pts = np.array([[pt["x"],pt["y"]] for pt in pts],dtype=np.int32)
-                        cv2.fillPoly(mask, pts =[pts], color=(255,0,0))
+                        cv2.fillPoly(mask, pts =[pts], color=(1,0,0))
                         # target = cv2.bitwise_and(img, img, mask=mask)
                         # plt.imshow(target)
                 
@@ -89,12 +89,13 @@ class CustomDataset(Dataset):
                 raise Exception('wrong type')
         # get label and filename from the loaded dataframe
         img = cv2.resize(img, self.img_dim, interpolation = cv2.INTER_AREA)
-        tgt = cv2.resize(tgt, self.img_dim, interpolation = cv2.INTER_AREA)[:,:,np.newaxis]
+        # tgt = cv2.resize(tgt, self.img_dim, interpolation = cv2.INTER_AREA)[:,:,np.newaxis]
+        tgt = cv2.resize(tgt, self.img_dim, interpolation = cv2.INTER_AREA)
         img_tensor = torch.Tensor(img)[:,:,[2,1,0]]
         img_tensor = img_tensor.permute(2, 0, 1)
         # create sensor for label
         tgt_tensor = torch.Tensor(tgt)
-        tgt_tensor = tgt_tensor.permute(2, 0, 1)
+        # tgt_tensor = tgt_tensor.permute(2, 0, 1)
         return img_tensor, tgt_tensor
 
 
