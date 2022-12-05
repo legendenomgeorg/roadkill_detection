@@ -1,0 +1,2 @@
+epoch,Train_loss,Validation_loss,Train_f1_score,Train_auroc,Validation_f1_score,Validation_auroc
+1,0.01718791574239731,0.015551204793155193,0.0037387841378407746,0.5102322533831736,0.0,0.4973565120145538

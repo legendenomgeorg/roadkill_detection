@@ -22,7 +22,7 @@ class CustomDataset(Dataset):
         self.image_ls = os.listdir(self.image_dir)
         self.annotation_ls = os.listdir(self.annotation_dir)
         # set size for images(not all images have the same size)
-        self.img_dim = (1280, 960)
+        self.img_dim = (1280//2, 960//2)
         self.target_type = target_type
     def __len__(self):
         return len(self.annotation_ls)
@@ -44,7 +44,8 @@ class CustomDataset(Dataset):
                         bm = np.zeros(img.shape[0:2])
                         bm[y:y+h,x:x+w] = 1
         except:
-                print(path_json)
+                #print(path_json)
+                nothing = "nothing"
         return img, bm
 
     def convert_polygon(self, file, type="bb"):
@@ -58,7 +59,7 @@ class CustomDataset(Dataset):
                 if data["annotations"] == []:
                         mask = np.zeros(img.shape[:2], dtype="float64")
                         # bm = np.int8(bm)
-                        print('null:',path_json)
+                        #print('null:',path_json)
                 else:       
                         mask = np.zeros(img.shape[:2], dtype="float64")
                         pts = data["annotations"][0]["polygon"]["path"]
@@ -69,7 +70,7 @@ class CustomDataset(Dataset):
                 
                 # np.savetxt(os.path.join(target_folder, txt_file), bm, fmt = '%s')
         except:
-                print(path_json)
+                nothing = "nothing"
                 mask = np.zeros(img.shape[:2], dtype="float64") # Disgusting code from the depths of hell
         return img, mask
                 

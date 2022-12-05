@@ -9,3 +9,4 @@ try.py
 
 .DS_Store
 __pycache__
+*.pt
