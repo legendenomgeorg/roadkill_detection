@@ -1,6 +1,8 @@
 data/
+plots/
 *.jpg
 *.jpeg
+*.png
 *.tar.gz
 *.json
 try.py
@@ -10,4 +12,3 @@ try.py
 .DS_Store
 __pycache__
 *.pt
-data
