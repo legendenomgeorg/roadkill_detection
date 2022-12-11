@@ -123,6 +123,31 @@ class RoadLoad(Dataset):
         tgt = 0
         tgt_tensor = torch.Tensor(tgt)
         return img_tensor, tgt_tensor, image_file
+    
+class RoadLoad_seq(Dataset):
+    def __init__(self):
+        self.image_dir = './data/road-images-seq'
+        self.image_ls = os.listdir(self.image_dir)
+        # set size for images(not all images have the same size)
+        self.img_dim = (1280//2, 960//2)
+        
+    def __len__(self):
+        return len(self.image_ls)
+    
+    def __getitem__(self, idx):
+        image_file = self.image_ls[idx]
+        print(image_file)
+        img = cv2.imread(os.path.join(self.image_dir, image_file))
+        # get label and filename from the loaded dataframe
+        img = cv2.resize(img, self.img_dim, interpolation = cv2.INTER_AREA)
+        # tgt = cv2.resize(tgt, self.img_dim, interpolation = cv2.INTER_AREA)[:,:,np.newaxis]
+
+        img_tensor = torch.Tensor(img)[:,:,[2,1,0]]
+        img_tensor = img_tensor.permute(2, 0, 1)
+        # create sensor for label
+        tgt = 0
+        tgt_tensor = torch.Tensor(tgt)
+        return img_tensor, tgt_tensor, image_file
 
     
 
